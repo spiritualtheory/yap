@@ -514,21 +514,21 @@ class UpgradeAdvisor
             return self::getState(false, sprintf("%s is/are phone numbers that are missing Twilio Call Status Changes Callback status.php webhook. This will not allow call reporting to work correctly.  For more information review the documentation page https://github.com/bmlt-enabled/yap/wiki/Call-Detail-Records.", implode(",", $misconfiguredPhoneNumbers)));
         }
 
-        try {
-            require_once 'twilio-client.php';
-            foreach ($GLOBALS['twilioClient']->incomingPhoneNumbers->read() as $number) {
-                if (basename($number->voiceUrl)) {
-                    if (!strpos($number->voiceUrl, '.php')
-                        && !strpos($number->voiceUrl, 'twiml')
-                        && !strpos($number->voiceUrl, '/?')
-                        && substr($number->voiceUrl, -1) !== "/") {
-                        return self::getState(false, $number->phoneNumber . " webhook should end either with `/` or `/index.php`");
-                    }
-                }
-            }
-        } catch (\Twilio\Exceptions\RestException $e) {
-            return self::getState(false, "Twilio Rest Error: " . $e->getMessage());
-        }
+//        try {
+//            require_once 'twilio-client.php';
+//            foreach ($GLOBALS['twilioClient']->incomingPhoneNumbers->read() as $number) {
+//                if (basename($number->voiceUrl)) {
+//                    if (!strpos($number->voiceUrl, '.php')
+//                        && !strpos($number->voiceUrl, 'twiml')
+//                        && !strpos($number->voiceUrl, '/?')
+//                        && substr($number->voiceUrl, -1) !== "/") {
+//                        return self::getState(false, $number->phoneNumber . " webhook should end either with `/` or `/index.php`");
+//                    }
+//                }
+//            }
+//        } catch (\Twilio\Exceptions\RestException $e) {
+//            return self::getState(false, "Twilio Rest Error: " . $e->getMessage());
+//        }
 
         if (has_setting('smtp_host')) {
             foreach (self::$email_settings as $setting) {
