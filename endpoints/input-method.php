@@ -22,9 +22,11 @@ if ($searchType == SearchType::VOLUNTEERS) {
 
     $searchDescription = word('someone_to_talk_to');
 } else if ($searchType == SearchType::MEETINGS) {
-    if (!setting("virtual") && (!strpos(setting('custom_query'), '{LATITUDE}') || !strpos(setting('custom_query'), '{LONGITUDE}'))) { ?>
+    if (!setting("virtual") && (!strpos(setting('custom_query'), '{LATITUDE}') || !strpos(setting('custom_query'), '{LONGITUDE}'))) {
+        $redirectUrl = "https://" . $_SERVER['HTTP_HOST'] . "/meeting-search.php?Called=" . $_REQUEST["Called"];
+        ?>
             <Response>
-                <Redirect method="GET">meeting-search.php?Called=<?php echo $_REQUEST["Called"]; ?></Redirect>
+                <Redirect method="GET"><?php echo $redirectUrl ?></Redirect>
             </Response>
             <?php
             exit();
