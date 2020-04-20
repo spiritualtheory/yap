@@ -22,11 +22,9 @@ if ($searchType == SearchType::VOLUNTEERS) {
 
     $searchDescription = word('someone_to_talk_to');
 } else if ($searchType == SearchType::MEETINGS) {
-    if (!setting("virtual") && (!strpos(setting('custom_query'), '{LATITUDE}') || !strpos(setting('custom_query'), '{LONGITUDE}'))) {
-        $redirectUrl = "https://" . $_SERVER['HTTP_HOST'] . "/meeting-search.php?Called=" . $_REQUEST["Called"];
-        ?>
+    if (!setting("virtual") && (!strpos(setting('custom_query'), '{LATITUDE}') || !strpos(setting('custom_query'), '{LONGITUDE}'))) { ?>
             <Response>
-                <Redirect method="GET"><?php echo $redirectUrl ?></Redirect>
+                <Redirect method="GET">https://vphone-sw.bmltenabled.org/meeting-search.php?Called=<?php echo $_REQUEST["Called"]; ?></Redirect>
             </Response>
             <?php
             exit();
