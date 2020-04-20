@@ -1,6 +1,7 @@
 {
     "require": {
         "twilio/sdk": "^5.41",
+        "signalwire/signalwire": "^2.3",
         "phpmailer/phpmailer": "^6.0"
     },
     "require-dev": {
